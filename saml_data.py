@@ -4,10 +4,9 @@ import pprint
 
 
 
-def convert_xml_to_json(xml_file):   
-    with open('xml_file') as f:
-        doc = xmltodict.parse(f.read())
-        print(type(doc))
+with open('saml_test_data.xml') as f:
+    doc = xmltodict.parse(f.read())
+    print(type(doc))
 
     for key,value in doc.items():
         print(key)
@@ -18,7 +17,7 @@ def convert_xml_to_json(xml_file):
     pp.pprint(json.dumps(doc))
 
 
-
+#what we want the response to do
 class SamlResponse:
     def __init__(self):
         pass
