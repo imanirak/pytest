@@ -1,30 +1,32 @@
 import pytest
 from unittest.mock import Mock
 from saml_data import SamlResponse
-import requests
-import json
-import xmltodict
-import pprint
-
-
 
 @pytest.fixture
-def saml_response():
-    with open('xml_file') as f:
-        doc = xmltodict.parse(f.read())
+def response():
+    return SamlResponse("saml_test_data.xml")
 
-    for key,value in doc.items():
-        print(key)
-        print('--------------------------------')
-        print(value)
-        print('--------------------------------')
-    pp = pprint.PrettyPrinter(indent=4)
-    pp.pprint(json.dumps(doc))
+# tested failure and success returns 
+def test_find_certificate(response):
+    if response.verify_certificate() is None:
+        assert False
+    else:
+        assert True
 
-    return SamlResponse()
+# tested failure and success returns 
+def test_find_signature(response):
+    if response.verify_signature() is None:  
+        assert False
+    else:
+        assert True
 
-
-def test_saml_get_response(saml_response):
-    response = requests.get("")
-    assert response.status_code == 200
+# tested failure and success returns 
+def test_verify_status(response):
+    status = response.saml2p_status_code()
+   # success_status = 'urn:oasis:names:tc:SAML:2.0:status:Success'
+    if not 'Success' in status:
+       assert False
+    else:
+        assert True
+    
     
