@@ -24,8 +24,5 @@ class SamlResponse:
         status = doc["saml2p:Response"]["saml2p:Status"]["saml2p:StatusCode"]["@Value"]  
         return status
 
-test = SamlResponse("saml_test_data.xml")
-print(test.doc)
-# print(test.verify_certificate())
-# print(test.saml2p_status_code())
-# print(test.verify_signature())
+if __name__ == "__main__":
+    test = SamlResponse("saml_test_success.xml")
